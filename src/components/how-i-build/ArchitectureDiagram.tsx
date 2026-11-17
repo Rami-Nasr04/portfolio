@@ -206,7 +206,7 @@ export default function ArchitectureDiagram({
             onKeyDown={press}
             className={cn(
               "group cursor-pointer outline-none transition-opacity duration-300",
-              !activeNodes.has(node.id) && "opacity-55 hover:opacity-100 focus-visible:opacity-100",
+              !activeNodes.has(node.id) && "opacity-70 hover:opacity-100 focus-visible:opacity-100",
             )}
           >
             <rect

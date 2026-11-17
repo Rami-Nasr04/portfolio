@@ -113,20 +113,30 @@
 }
 
 /*
- * First visit of a session: a veil dims the page while the mark draws, and the nav logo
- * waits for the mark to land on it. The veil is in CSS so it is there from the first paint;
- * the failsafe animation clears it even if the script never runs.
+ * The intro, on the first visit of a session. Everything up to the hand-off runs in CSS so
+ * it starts with the first paint: a plain cover hides the page, the outline of the mark
+ * draws and the letters fade in. The script then glides the mark into the nav logo slot and
+ * adds .intro-out, which fades the cover away and so fades the page in. The failsafe
+ * animations clear the cover and the mark even if the script never runs.
  */
+.intro-stage {
+  display: none;
+}
+
+html.intro .intro-stage {
+  display: block;
+  animation: intro-failsafe 0.4s 5s forwards;
+}
+
 html.intro body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 45;
   background: var(--background);
-  opacity: 0.86;
   pointer-events: none;
-  transition: opacity 0.4s ease-out;
-  animation: intro-veil-failsafe 0.4s 4s forwards;
+  transition: opacity 0.5s ease-out;
+  animation: intro-failsafe 0.4s 5s forwards;
 }
 
 html.intro.intro-out body::before {
@@ -137,9 +147,33 @@ html.intro #nav-logo {
   opacity: 0;
 }
 
-@keyframes intro-veil-failsafe {
+html.intro .intro-outline {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: intro-draw 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+html.intro .intro-letters {
+  opacity: 0;
+  animation: intro-letters 0.4s ease-out 1s forwards;
+}
+
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes intro-letters {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-failsafe {
   to {
     opacity: 0;
+    visibility: hidden;
   }
 }
 

@@ -14,7 +14,7 @@ interface SectionProps {
 export default function Section({ id, title, intro, action, className, children }: SectionProps) {
   return (
     <section id={id} tabIndex={-1} aria-labelledby={`${id}-title`} className="outline-none">
-      <div className={cn("mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 rail:px-24", className)}>
+      <div className={cn("mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-20 rail:px-24", className)}>
         <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
           <div>
             <h2 id={`${id}-title`} className="text-title font-semibold">

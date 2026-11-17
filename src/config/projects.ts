@@ -61,14 +61,14 @@ export const PROJECTS: Project[] = [
     period: "Sep 2026 to present",
     role: "Sole engineer",
     problem:
-      "A Lebanese brand of hand-carved stone wine racks needed a store for limited editions that can never oversell, and a way to run orders, stock, photos and newsletters from a phone.",
+      "A Lebanese studio that carves granite wine racks by hand needed a store for limited editions that can never oversell, and a way to run orders, stock, photos and newsletters from a phone.",
     built:
-      "A prerendered React storefront with customer accounts and cash-on-delivery checkout, a mobile-first admin studio, and a TypeScript serverless backend on AWS. Orders are locked single transactions and safe to retry, so a double tap never creates a duplicate.",
-    stack: ["TypeScript", "React", "AWS Lambda", "API Gateway", "PostgreSQL (RDS)", "Cognito", "S3", "CloudFront", "SES"],
+      "A prerendered React storefront with customer accounts and cash-on-delivery checkout, a phone-first admin studio, and a TypeScript serverless backend on AWS. An order is one locked transaction and safe to retry, so stock can never oversell and a double tap never creates a duplicate.",
+    stack: ["TypeScript", "React", "AWS Lambda", "API Gateway", "PostgreSQL (RDS)", "Cognito", "S3", "CloudFront", "SES", "Vercel"],
     results: [
       { value: "100", label: "PageSpeed mobile, home page" },
       { value: "100", label: "Lighthouse SEO and accessibility" },
-      { value: "1,800+", label: "automated tests" },
+      { value: "1,650+", label: "automated tests" },
     ],
     preview: "/images/previews/glowstone",
     demos: [demo("glowstone-store"), demo("glowstone-studio")],
@@ -84,15 +84,15 @@ export const PROJECTS: Project[] = [
     period: "May 2026 to present",
     role: "Sole engineer",
     problem:
-      "During peak service the platform hit a live incident. I traced it to database connection exhaustion, on the system a fine-dining restaurant in Achrafieh runs its service on every day.",
+      "A restaurant in Achrafieh runs its service on this platform every day, so it has to hold at rush hour. After a production incident, I load-tested it at about ten times real traffic and found database connection exhaustion.",
     built:
-      "Fixed it across three layers: connection pooling, server-side idle-session timeouts and correct transient-error status codes, then load-tested under rush-hour concurrency. The platform itself covers bookings, walk-ins, table merges, seating and billing, with four roles and TOTP multi-factor auth.",
-    stack: ["TypeScript", "Node.js", "PostgreSQL", "React 19", "Cognito + TOTP MFA", "Zod", "Vitest"],
+      "Fixed it across three layers: a smaller connection pool per function, server-side idle-session timeouts and correct status codes for transient errors, then re-ran the test clean. The platform itself covers bookings, walk-ins, table merges, seating and billing, with four staff roles.",
+    stack: ["TypeScript", "Node.js", "PostgreSQL", "React 19", "AWS Lambda", "Cognito", "Zod", "Vitest"],
     results: [
       { value: "0 errors", label: "under load, after the fix" },
       { value: "105 ms", label: "p50 (379 ms p95)" },
       { value: "35", label: "REST endpoints" },
-      { value: "82", label: "automated tests" },
+      { value: "155", label: "automated tests (82 API, 73 frontend)" },
     ],
     preview: null,
     demos: [demo("tsu")],

@@ -9,3 +9,4 @@
 /.vercel/
 /local/
 *.log
+.vercel

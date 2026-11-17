@@ -2,21 +2,21 @@
 
 export const ABOUT_PARAGRAPHS: string[] = [
   "I'm a full-stack developer in Beirut who builds production web systems end to end and stays with them after launch: TypeScript serverless backends on AWS, PostgreSQL and MySQL data models, authentication, and React frontends.",
-  "As the sole engineer, I built the reservation and floor-management platform that Sushi Tsunami, a fine-dining restaurant in Achrafieh, runs its service on every day. I also built Glowstone, a live e-commerce store with its own admin studio.",
-  "What I care about: data that can't go wrong (transactions, row locking, idempotent APIs), security by default (MFA, role-based access, parameterized SQL), and fixing real incidents. During a peak-hour outage I traced the cause to database connection exhaustion, fixed it across three layers, and load-tested it to zero errors.",
-  "Before this, I spent 14 months doing remote IT, network and application support for branches across Lebanon, Africa and Saudi Arabia. I hold a BSc in Computer Science from the Lebanese American University, and I work in Arabic and English.",
+  "As the sole engineer, I built the reservation and floor-management platform that Sushi Tsunami, a fine-dining restaurant in Achrafieh, runs its service on every day. I also built Glowstone, a live e-commerce store with its own admin studio that the owner runs from a phone.",
+  "What I care about: data that can't go wrong (transactions, row locking, idempotent APIs), security by default (MFA, role-based access, parameterized SQL), and fixing real incidents. After a production incident I load-tested the restaurant platform at about ten times its rush-hour traffic, found database connection exhaustion, fixed it across three layers, and re-tested to zero errors.",
+  "Before this, I spent 14 months doing remote IT, network and application support for branches across Lebanon, Africa and Saudi Arabia.",
 ];
 
-export interface Stat {
-  value: string;
+export interface Fact {
   label: string;
+  value: string;
 }
 
-export const ABOUT_STATS: Stat[] = [
-  { value: "1,800+", label: "automated tests behind Glowstone" },
-  { value: "100", label: "Lighthouse SEO and accessibility, Glowstone" },
-  { value: "35", label: "REST endpoints in the Sushi Tsunami platform" },
-  { value: "0", label: "errors in the load test after the incident fix" },
+export const ABOUT_FACTS: Fact[] = [
+  { label: "Based in", value: "Beirut, Lebanon" },
+  { label: "Open to", value: "Full-stack, backend and cloud/DevOps roles, remote or on-site, and freelance projects" },
+  { label: "Languages", value: "Arabic (native), English (fluent)" },
+  { label: "Day to day", value: "TypeScript, React, Node.js, AWS, PostgreSQL" },
 ];
 
 /** Set to the certificate's name to show the "Currently learning" badge in About. */
@@ -50,14 +50,23 @@ export const EXPERIENCE: ExperienceEntry[] = [
       "Administered the internal business systems used across branches and resolved hardware, software and connectivity issues where downtime cost trading hours.",
     ],
   },
+];
+
+export interface Certificate {
+  name: string;
+  issuer: string;
+  date: string;
+  detail?: string;
+}
+
+/** Degrees and certificates, newest first. Add new ones at the top. */
+export const CERTIFICATES: Certificate[] = [
   {
-    period: "Dec 2025",
-    role: "BSc, Computer Science",
-    place: "Lebanese American University, Beirut",
-    points: [
-      "Coursework: Web Development (PHP, MySQL), Software Engineering, Database Management Systems, Cloud Computing.",
-      "Capstone: Wasselni, a ride-sharing, fleet and route-tracking platform built in a two-person team.",
-    ],
+    name: "BSc, Computer Science",
+    issuer: "Lebanese American University, Beirut",
+    date: "Dec 2025",
+    detail:
+      "Coursework: Web Development (PHP, MySQL), Software Engineering, Database Management Systems, Cloud Computing. Capstone: Wasselni, a ride-sharing, fleet and route-tracking platform built in a two-person team.",
   },
 ];
 

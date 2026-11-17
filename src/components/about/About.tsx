@@ -1,5 +1,5 @@
 import Section from "@/components/layout/Section";
-import { ABOUT_PARAGRAPHS, ABOUT_STATS, CURRENTLY_LEARNING } from "@/config/content";
+import { ABOUT_FACTS, ABOUT_PARAGRAPHS, CURRENTLY_LEARNING } from "@/config/content";
 
 const PHOTO_WIDTHS = [400, 640, 960];
 const PHOTO_SIZES = "(min-width: 1024px) 22rem, 70vw";
@@ -45,11 +45,11 @@ export default function About() {
         </div>
       </div>
 
-      <dl className="mt-14 grid gap-px overflow-hidden rounded-card border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-        {ABOUT_STATS.map((stat) => (
-          <div key={stat.label} className="flex flex-col-reverse bg-surface p-6">
-            <dt className="mt-2 text-sm text-muted-foreground">{stat.label}</dt>
-            <dd className="font-mono text-3xl font-bold tracking-tight text-foreground">{stat.value}</dd>
+      <dl className="mt-14 max-w-3xl border-t border-border">
+        {ABOUT_FACTS.map((fact) => (
+          <div key={fact.label} className="grid gap-x-8 gap-y-1 border-b border-border py-4 sm:grid-cols-[9rem_minmax(0,1fr)]">
+            <dt className="font-mono text-sm text-accent">{fact.label}</dt>
+            <dd className="text-foreground">{fact.value}</dd>
           </div>
         ))}
       </dl>

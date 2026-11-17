@@ -1,5 +1,6 @@
 import { useState } from "react";
 import About from "@/components/about/About";
+import Certificates from "@/components/about/Certificates";
 import Experience from "@/components/about/Experience";
 import Skills from "@/components/about/Skills";
 import Contact from "@/components/contact/Contact";
@@ -40,6 +41,7 @@ export default function BelowFold() {
       <About />
       <Experience />
       <Skills />
+      <Certificates />
       <Services selectedIds={requestIds} onToggle={toggleRequest} onSend={sendRequest} />
       <Testimonials />
       <Notes />

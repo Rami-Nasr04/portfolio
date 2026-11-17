@@ -195,7 +195,7 @@ export default function Contact({ initialSubject = "", initialMessage = "" }: Co
           </ul>
           <a href={SITE.cvPath} download className={cn(buttonVariants({ size: "sm" }), "mt-6")}>
             <Download aria-hidden="true" />
-            Download CV
+            Download resume
           </a>
         </div>
       </div>

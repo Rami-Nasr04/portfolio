@@ -37,7 +37,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-[78vw] max-w-sm sm:max-w-md lg:mx-0 lg:w-auto lg:max-w-none lg:justify-self-end">
+        <div className="relative mx-auto w-[78vw] max-w-sm sm:max-w-md lg:mx-0 lg:mb-[6vh] lg:w-auto lg:max-w-none lg:self-center lg:justify-self-end">
           {/* Drawing-sheet grid and a soft glow sit behind the cut-out photo. */}
           <div
             aria-hidden="true"
