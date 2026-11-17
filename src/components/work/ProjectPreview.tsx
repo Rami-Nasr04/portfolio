@@ -33,7 +33,7 @@ export default function ProjectPreview({ project, eager = false, className }: Pr
           className,
         )}
       >
-        <span className="font-mono text-[clamp(0.7rem,1.4vw,0.875rem)] text-primary">{project.kind}</span>
+        <span className="font-mono text-[clamp(0.7rem,1.4vw,0.875rem)] text-accent">{project.kind}</span>
         <span className="mt-1 text-[clamp(1.5rem,5vw,3.25rem)] leading-none font-semibold tracking-tight text-foreground">
           {project.name}
         </span>

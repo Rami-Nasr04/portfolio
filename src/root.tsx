@@ -1,8 +1,9 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { MotionConfig } from "motion/react";
 import { Toaster } from "sonner";
-import "@fontsource-variable/geist/wght.css";
-import "@fontsource-variable/geist-mono/wght.css";
+import "@fontsource-variable/bricolage-grotesque/wght.css";
+import "@fontsource/space-mono/latin-400.css";
+import "@fontsource/space-mono/latin-700.css";
 import type { Route } from "./+types/root";
 import { INTRO_INIT_SCRIPT } from "@/components/layout/MonogramIntro";
 import { buttonVariants } from "@/components/ui/Button";
@@ -49,8 +50,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const notFound = isRouteErrorResponse(error) && error.status === 404;
 
   return (
-    <main className="mx-auto flex min-h-svh max-w-page flex-col items-start justify-center px-5 sm:px-8">
-      <p className="font-mono text-sm text-primary">{notFound ? "404" : "Error"}</p>
+    <main className="mx-auto flex min-h-svh max-w-page flex-col items-start justify-center px-5 sm:px-8 rail:px-24">
+      <p className="font-mono text-sm text-accent">{notFound ? "404" : "Error"}</p>
       <h1 className="mt-3 text-title font-semibold">
         {notFound ? "This page doesn't exist" : "Something went wrong on this page"}
       </h1>

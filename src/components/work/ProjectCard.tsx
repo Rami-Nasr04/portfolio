@@ -92,10 +92,9 @@ export default function ProjectCard({ project, flipped = false, eager = false, o
 
         {(project.demos.length > 0 || project.code.length > 0) && (
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            {liveDemos.map((demo, index) => (
+            {liveDemos.map((demo) => (
               <Button
                 key={demo.key}
-                variant={index === 0 ? "primary" : "outline"}
                 onClick={() => onOpenDemo(project, demo)}
               >
                 <Play aria-hidden="true" />
@@ -108,7 +107,7 @@ export default function ProjectCard({ project, flipped = false, eager = false, o
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                className={buttonVariants({ variant: "outline" })}
+                className={buttonVariants()}
               >
                 <Code2 aria-hidden="true" />
                 {project.code.length > 1 ? `${link.label} code` : "Code"}

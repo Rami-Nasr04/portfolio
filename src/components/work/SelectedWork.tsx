@@ -20,7 +20,7 @@ export default function SelectedWork({ limit = PROJECTS.length }: SelectedWorkPr
 
   return (
     <section id="work" tabIndex={-1} aria-labelledby="work-title" className="outline-none">
-      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 rail:px-24">
         <h2 id="work-title" className="text-title font-semibold">
           Selected work
         </h2>

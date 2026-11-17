@@ -1,11 +1,10 @@
-import { Download } from "lucide-react";
 import { buttonVariants } from "@/components/ui/Button";
 import { SITE } from "@/config/site";
 import { scrollToSection } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
 const PHOTO_WIDTHS = [400, 640, 960];
-const PHOTO_SIZES = "(min-width: 1024px) 30rem, (min-width: 640px) 24rem, 78vw";
+const PHOTO_SIZES = "(min-width: 1024px) 36rem, (min-width: 640px) 24rem, 78vw";
 
 function srcSet(format: "avif" | "webp"): string {
   return PHOTO_WIDTHS.map((width) => `/images/rami-hero-${width}.${format} ${width}w`).join(", ");
@@ -19,37 +18,25 @@ export default function Hero() {
 
   return (
     <section id="top" tabIndex={-1} className="relative overflow-clip outline-none">
-      <div className="mx-auto grid max-w-page items-end gap-x-10 px-5 pt-10 sm:px-8 sm:pt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:pt-20">
-        <div className="pb-10 lg:pb-28">
-          <p className="font-mono text-sm text-primary">{SITE.location}</p>
-          <h1 className="mt-4 text-display font-semibold">{SITE.name}</h1>
-          <p className="mt-5 max-w-xl text-xl font-medium text-foreground sm:text-2xl">{SITE.title}</p>
-          <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted-foreground">{SITE.valueLine}</p>
+      <div className="mx-auto grid max-w-wide items-end gap-x-8 px-5 pt-28 sm:px-8 sm:pt-32 lg:min-h-svh lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pt-24 rail:px-28">
+        <div className="pb-12 lg:self-center lg:py-16">
+          <p className="font-mono text-sm text-accent sm:text-base">{SITE.location}</p>
+          <h1 className="mt-5 text-display font-bold text-name">{SITE.name}</h1>
+          <p className="mt-4 max-w-2xl text-lead font-semibold text-tagline">{SITE.tagline}</p>
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-dim sm:text-lg">{SITE.description}</p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a href="#work" onClick={(event) => go(event, "work")} className={buttonVariants({ variant: "primary" })}>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <a href="#work" onClick={(event) => go(event, "work")} className={buttonVariants()}>
               View work
             </a>
-            <a
-              href="#contact"
-              onClick={(event) => go(event, "contact")}
-              className={buttonVariants({ variant: "accent" })}
-            >
+            <a href="#contact" onClick={(event) => go(event, "contact")} className={buttonVariants()}>
               Contact me
-            </a>
-            <a
-              href={SITE.cvPath}
-              download
-              className="ml-1 inline-flex items-center gap-2 py-2 text-sm text-muted-foreground underline decoration-border-strong underline-offset-4 transition-colors hover:text-foreground"
-            >
-              <Download className="size-4" aria-hidden="true" />
-              Download CV
             </a>
           </div>
         </div>
 
         <div className="relative mx-auto w-[78vw] max-w-sm sm:max-w-md lg:mx-0 lg:w-auto lg:max-w-none lg:justify-self-end">
-          {/* Drawing-sheet grid and a soft navy glow sit behind the cut-out photo. */}
+          {/* Drawing-sheet grid and a soft glow sit behind the cut-out photo. */}
           <div
             aria-hidden="true"
             className={cn(
@@ -60,7 +47,7 @@ export default function Hero() {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 top-[12%] bottom-0 rounded-full bg-glow opacity-50 blur-3xl"
+            className="absolute inset-x-0 top-[12%] bottom-0 rounded-full bg-glow opacity-60 blur-3xl"
           />
           <picture>
             <source type="image/avif" srcSet={srcSet("avif")} sizes={PHOTO_SIZES} />

@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 import { ArrowUpRight, X } from "lucide-react";
 import ProjectPreview, { EXPAND_TRANSITION } from "@/components/work/ProjectPreview";
-import { buttonVariants } from "@/components/ui/Button";
+import { buttonVariants, ICON_CONTROL } from "@/components/ui/Button";
 import type { Project, ProjectDemo } from "@/config/projects";
 import { cn } from "@/lib/utils";
 
@@ -102,7 +102,7 @@ export default function ProjectWindow({ project, demo, onClose }: ProjectWindowP
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.1 } }}
           transition={CHROME_FADE}
-          className="flex h-13 shrink-0 items-center gap-3 border-b border-border bg-surface pr-2 pl-4"
+          className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-surface pr-2 pl-4"
         >
           <h2 id={titleId} className="min-w-0 truncate text-sm font-medium text-foreground">
             {project.name}
@@ -115,7 +115,7 @@ export default function ProjectWindow({ project, demo, onClose }: ProjectWindowP
             href={url}
             target="_blank"
             rel="noreferrer"
-            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "ml-auto shrink-0")}
+            className={cn(buttonVariants({ size: "sm" }), "ml-auto shrink-0")}
           >
             Open in new tab
             <ArrowUpRight aria-hidden="true" />
@@ -125,7 +125,7 @@ export default function ProjectWindow({ project, demo, onClose }: ProjectWindowP
             type="button"
             onClick={onClose}
             aria-label={`Close ${project.name} window`}
-            className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "shrink-0")}
+            className={ICON_CONTROL}
           >
             <X aria-hidden="true" />
           </button>
@@ -158,7 +158,7 @@ export default function ProjectWindow({ project, demo, onClose }: ProjectWindowP
                   transition={CHROME_FADE}
                   className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-border bg-surface px-4 py-2 font-mono text-xs text-muted-foreground shadow-lg shadow-scrim/20"
                 >
-                  Loading {host}â€¦
+                  Loading {host}…
                 </motion.p>
               )}
             </>
@@ -183,9 +183,9 @@ export default function ProjectWindow({ project, demo, onClose }: ProjectWindowP
                   href={url}
                   target="_blank"
                   rel="noreferrer"
-                  className={cn(buttonVariants({ variant: "primary" }), "mt-5 w-full sm:w-auto")}
+                  className={cn(buttonVariants(), "mt-5 w-full sm:w-auto")}
                 >
-                  Open {host} in new tab
+                  Open {host}
                   <ArrowUpRight aria-hidden="true" />
                 </a>
               </div>

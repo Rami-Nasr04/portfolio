@@ -2,48 +2,52 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface MonogramProps {
-  /** Draws the strokes in on mount. Otherwise renders the finished mark. */
+  /** Plays the intro: the outline draws itself, then the letters fade in. */
   draw?: boolean;
   className?: string;
 }
 
-const DRAW_SECONDS = 0.6;
+export const OUTLINE_SECONDS = 1;
+export const LETTERS_SECONDS = 0.4;
 
+const OUTLINE = "M14 4h20a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H14A10 10 0 0 1 4 34V14A10 10 0 0 1 14 4z";
 /** The R and the N share one continuous weight; the R's leg leans into the N's stem. */
-const STROKES = ["M9 31V9h8.5a6 6 0 0 1 0 12H9", "M16.5 21 23 31", "M28 31V9l12 22V9"];
+const LETTERS = ["M9 31V9h8.5a6 6 0 0 1 0 12H9", "M16.5 21 23 31", "M28 31V9l12 22V9"];
+const LETTERS_TRANSFORM = "translate(24 24) scale(0.68) translate(-24.5 -20)";
 
 export default function Monogram({ draw = false, className }: MonogramProps) {
   return (
     <svg
-      viewBox="0 0 48 40"
+      viewBox="0 0 48 48"
       fill="none"
       stroke="currentColor"
-      strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className={cn("h-7 w-auto", className)}
+      className={cn("size-10", className)}
     >
-      {STROKES.map((d, index) =>
-        draw ? (
-          <motion.path
-            key={d}
-            d={d}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{
-              pathLength: {
-                duration: index === 1 ? DRAW_SECONDS * 0.4 : DRAW_SECONDS * 0.75,
-                delay: index * DRAW_SECONDS * 0.2,
-                ease: [0.65, 0, 0.35, 1],
-              },
-              opacity: { duration: 0.01, delay: index * DRAW_SECONDS * 0.2 },
-            }}
-          />
-        ) : (
-          <path key={d} d={d} />
-        ),
+      {draw ? (
+        <motion.path
+          d={OUTLINE}
+          strokeWidth="2"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: OUTLINE_SECONDS, ease: [0.65, 0, 0.35, 1] }}
+        />
+      ) : (
+        <path d={OUTLINE} strokeWidth="2" />
       )}
+      <g transform={LETTERS_TRANSFORM} strokeWidth="3.4">
+        <motion.g
+          initial={draw ? { opacity: 0 } : false}
+          animate={{ opacity: 1 }}
+          transition={{ duration: LETTERS_SECONDS, delay: OUTLINE_SECONDS, ease: "easeOut" }}
+        >
+          {LETTERS.map((d) => (
+            <path key={d} d={d} />
+          ))}
+        </motion.g>
+      </g>
     </svg>
   );
 }

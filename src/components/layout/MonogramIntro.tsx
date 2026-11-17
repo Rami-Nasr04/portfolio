@@ -1,37 +1,34 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import Monogram from "@/components/layout/Monogram";
+import Monogram, { LETTERS_SECONDS, OUTLINE_SECONDS } from "@/components/layout/Monogram";
 
 const SEEN_KEY = "intro-seen";
 const INTRO_CLASS = "intro";
-const DRAW_MS = 700;
-const TRAVEL_SECONDS = 0.55;
-const PLATE_PX = 96;
+/** Fades the veil out while the mark travels. */
+const LEAVING_CLASS = "intro-out";
+const TRAVEL_SECONDS = 0.4;
+const MARK_PX = 144;
+const SKIP_EVENTS = ["pointerdown", "keydown", "wheel", "touchmove"] as const;
 
 /**
  * Runs in <head>. Marks the document for the intro only on the first visit of a session and
- * never under reduced motion, so the nav logo can stay hidden until the mark lands on it.
+ * never under reduced motion, so the veil and the hidden nav logo are right from first paint.
  */
 export const INTRO_INIT_SCRIPT = `(function(){try{if(!sessionStorage.getItem("${SEEN_KEY}")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("${INTRO_CLASS}")}}catch(e){}})()`;
 
-interface Travel {
-  x: number;
-  y: number;
-  scale: number;
+type Travel = { x: number; y: number; scale: number };
+
+function endIntro(): void {
+  document.documentElement.classList.remove(INTRO_CLASS, LEAVING_CLASS);
 }
 
 /**
- * The RN mark draws itself on a small plate, then glides into the nav logo slot.
- * It sits above the page without covering it: content is readable the whole time.
+ * About 1.8 s in all: the outline draws, "RN" fades in, then the mark scales down into the
+ * nav logo slot. Any click, key press or scroll skips it.
  */
 export default function MonogramIntro() {
   const [phase, setPhase] = useState<"idle" | "draw" | "travel">("idle");
   const [travel, setTravel] = useState<Travel>({ x: 0, y: 0, scale: 1 });
-
-  const finish = () => {
-    document.documentElement.classList.remove(INTRO_CLASS);
-    setPhase("idle");
-  };
 
   useEffect(() => {
     if (!document.documentElement.classList.contains(INTRO_CLASS)) return;
@@ -40,27 +37,37 @@ export default function MonogramIntro() {
     } catch {
       // Without storage the intro simply plays again next time.
     }
+
+    const finish = () => {
+      endIntro();
+      setPhase("idle");
+    };
     const start = requestAnimationFrame(() => setPhase("draw"));
 
-    const timer = window.setTimeout(() => {
-      const logo = document.getElementById("nav-logo")?.getBoundingClientRect();
-      if (!logo) {
-        finish();
-        return;
-      }
-      const plateCentreX = window.innerWidth / 2;
-      const plateCentreY = window.innerHeight * 0.4;
-      setTravel({
-        x: logo.left + logo.width / 2 - plateCentreX,
-        y: logo.top + logo.height / 2 - plateCentreY,
-        scale: logo.height / (PLATE_PX * 0.5),
-      });
-      setPhase("travel");
-    }, DRAW_MS);
+    const timer = window.setTimeout(
+      () => {
+        const logo = document.getElementById("nav-logo")?.getBoundingClientRect();
+        if (!logo || logo.height === 0) {
+          finish();
+          return;
+        }
+        setTravel({
+          x: logo.left + logo.width / 2 - window.innerWidth / 2,
+          y: logo.top + logo.height / 2 - window.innerHeight * 0.42,
+          scale: logo.height / MARK_PX,
+        });
+        document.documentElement.classList.add(LEAVING_CLASS);
+        setPhase("travel");
+      },
+      (OUTLINE_SECONDS + LETTERS_SECONDS) * 1000,
+    );
+
+    SKIP_EVENTS.forEach((type) => window.addEventListener(type, finish, { passive: true }));
 
     return () => {
       cancelAnimationFrame(start);
       window.clearTimeout(timer);
+      SKIP_EVENTS.forEach((type) => window.removeEventListener(type, finish));
     };
   }, []);
 
@@ -69,24 +76,16 @@ export default function MonogramIntro() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-50">
       <motion.div
-        className="absolute top-[40%] left-1/2 -mt-12 -ml-12 flex size-24 items-center justify-center"
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={phase === "travel" ? { opacity: 1, ...travel } : { opacity: 1, scale: 1 }}
-        transition={
-          phase === "travel"
-            ? { duration: TRAVEL_SECONDS, ease: [0.16, 1, 0.3, 1] }
-            : { duration: 0.18 }
-        }
+        className="absolute top-[42%] left-1/2 -mt-18 -ml-18 size-36 text-accent"
+        animate={phase === "travel" ? travel : { x: 0, y: 0, scale: 1 }}
+        transition={{ duration: TRAVEL_SECONDS, ease: [0.5, 0, 0.2, 1] }}
         onAnimationComplete={() => {
-          if (phase === "travel") finish();
+          if (phase !== "travel") return;
+          endIntro();
+          setPhase("idle");
         }}
       >
-        <motion.span
-          className="absolute inset-0 rounded-card border border-border bg-surface shadow-lg shadow-scrim/20"
-          animate={{ opacity: phase === "travel" ? 0 : 1 }}
-          transition={{ duration: 0.25 }}
-        />
-        <Monogram draw className="relative h-12 text-foreground" />
+        <Monogram draw className="size-full" />
       </motion.div>
     </div>
   );
