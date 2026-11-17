@@ -4,11 +4,13 @@ import { scrollToSection } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
 const PHOTO_WIDTHS = [400, 640, 960];
-const PHOTO_SIZES = "(min-width: 1024px) 36rem, (min-width: 640px) 24rem, 78vw";
+export const HERO_PHOTO_SIZES = "(min-width: 1024px) 36rem, (min-width: 640px) 24rem, 78vw";
 
 function srcSet(format: "avif" | "webp"): string {
   return PHOTO_WIDTHS.map((width) => `/images/rami-hero-${width}.${format} ${width}w`).join(", ");
 }
+
+export const HERO_PHOTO_SRCSET = srcSet("avif");
 
 export default function Hero() {
   const go = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -50,15 +52,15 @@ export default function Hero() {
             className="absolute inset-x-0 top-[12%] bottom-0 rounded-full bg-glow opacity-60 blur-3xl"
           />
           <picture>
-            <source type="image/avif" srcSet={srcSet("avif")} sizes={PHOTO_SIZES} />
-            <source type="image/webp" srcSet={srcSet("webp")} sizes={PHOTO_SIZES} />
+            <source type="image/avif" srcSet={srcSet("avif")} sizes={HERO_PHOTO_SIZES} />
+            <source type="image/webp" srcSet={srcSet("webp")} sizes={HERO_PHOTO_SIZES} />
             <img
               src="/images/rami-hero-640.webp"
               alt="Rami Nasr, in a dark suit and white shirt"
               width={2000}
               height={2120}
               fetchPriority="high"
-              decoding="async"
+              decoding="sync"
               className="relative block h-auto w-full [mask-composite:intersect] [mask-image:linear-gradient(to_bottom,black_80%,transparent),linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
             />
           </picture>

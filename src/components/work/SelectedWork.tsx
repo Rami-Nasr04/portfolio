@@ -34,7 +34,6 @@ export default function SelectedWork({ limit = PROJECTS.length }: SelectedWorkPr
               key={project.id}
               project={project}
               flipped={index % 2 === 1}
-              eager={index === 0}
               onOpenDemo={(openProject, demo) => setOpen({ project: openProject, demo })}
             />
           ))}

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "landing-page",
+    "name": "Landing Page",
+    "included": ["One-page site with your key information", "Contact and WhatsApp button", "Map", "Mobile-first", "SEO basics"],
+    "price": 250,
+    "delivery": "1 to 2 weeks"
+  },
+  {
+    "id": "business-website",
+    "name": "Business Website",
+    "included": ["Multi-page site", "Contact form", "Gallery or menu", "Bilingual English and Arabic option", "Google Business setup"],
+    "price": 600,
+    "delivery": "2 to 3 weeks"
+  },
+  {
+    "id": "ecommerce-store",
+    "name": "E-commerce Store",
+    "included": ["Product catalogue", "Cart and checkout", "Customer accounts", "Admin panel for orders and stock", "Order emails"],
+    "price": 1200,
+    "delivery": "4 to 6 weeks"
+  },
+  {
+    "id": "booking-management",
+    "name": "Booking / Management System",
+    "included": ["Bookings or orders", "Admin panel", "Staff accounts and roles", "Integrations"],
+    "price": 1500,
+    "delivery": "6 to 8 weeks"
+  },
+  {
+    "id": "your-idea",
+    "name": "Your Idea → Real Software",
+    "included": ["For any idea you have", "Tell me what you imagine, I'll make it real"],
+    "price": null,
+    "delivery": "Scoped together"
+  }
+]
