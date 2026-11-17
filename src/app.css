@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Colour tokens. Light is the base, .dark overrides. All text pairs meet WCAG AA. */
+:root {
+  --background: #f6f8fb;
+  --surface: #ffffff;
+  --surface-raised: #eef2f7;
+  --border: #e2e8f0;
+  --border-strong: #c3cedd;
+  --foreground: #0f172a;
+  --muted-foreground: #475569;
+  --primary: #2348a6;
+  --primary-foreground: #ffffff;
+  --primary-soft: #e4ebf8;
+  --accent: #d6a548;
+  --accent-foreground: #0f172a;
+  --glow: #b9cbee;
+  --ring: #2348a6;
+  --danger: #a33a3a;
+  --scrim: #0f172a;
+  color-scheme: light;
+}
+
+.dark {
+  --background: #0b1220;
+  --surface: #111b2e;
+  --surface-raised: #16223a;
+  --border: #1f2b42;
+  --border-strong: #2e3e5c;
+  --foreground: #e6edf7;
+  --muted-foreground: #94a3b8;
+  --primary: #7aa9f0;
+  --primary-foreground: #0b1220;
+  --primary-soft: #16264a;
+  --accent: #e2b867;
+  --accent-foreground: #0b1220;
+  --glow: #1c3566;
+  --ring: #7aa9f0;
+  --danger: #e59a9a;
+  --scrim: #05080f;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-glow: var(--glow);
+  --color-ring: var(--ring);
+  --color-danger: var(--danger);
+  --color-scrim: var(--scrim);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Type scale (ratio ~1.25), fluid at the top end */
+  --text-display: clamp(2.75rem, 1.6rem + 5.2vw, 5.25rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.045em;
+  --text-title: clamp(1.75rem, 1.3rem + 1.9vw, 2.5rem);
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.03em;
+
+  --radius-card: 0.875rem;
+  --radius-control: 0.625rem;
+
+  --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --container-page: 72rem;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: var(--primary-soft);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+/* First visit of a session: the nav logo waits for the intro mark to land on it. */
+html.intro #nav-logo {
+  opacity: 0;
+}
+
+/* Set while the project window is open. */
+html.scroll-locked {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}

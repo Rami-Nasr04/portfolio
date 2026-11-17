@@ -1,0 +1,7 @@
+{
+  "glowstone-store": { "label": "Storefront", "url": "https://glowstonelb.com" },
+  "glowstone-studio": { "label": "Admin studio", "url": null },
+  "tsu": { "label": "Reservation platform", "url": null },
+  "arome": { "label": "Live site", "url": "https://arome-gourmet.vercel.app" },
+  "ayssar": { "label": "Live site", "url": "https://ayssarportfolio-nine.vercel.app" }
+}
