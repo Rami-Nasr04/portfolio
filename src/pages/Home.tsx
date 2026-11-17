@@ -1,4 +1,5 @@
 import Hero from "@/components/hero/Hero";
+import HowIBuild from "@/components/how-i-build/HowIBuild";
 import MonogramIntro from "@/components/layout/MonogramIntro";
 import Nav from "@/components/layout/Nav";
 import SideRails from "@/components/layout/SideRails";
@@ -22,6 +23,7 @@ export default function Home() {
         <main>
           <Hero />
           <SelectedWork />
+          <HowIBuild />
         </main>
       </div>
     </>
