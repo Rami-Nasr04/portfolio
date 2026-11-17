@@ -46,8 +46,8 @@ const GEOMETRY: Record<ArchitectureDiagramProps["layout"], Geometry> = {
   tall: {
     width: 360,
     height: 540,
-    nodeW: 102,
-    nodeH: 48,
+    nodeW: 96,
+    nodeH: 44,
     place: (node) => ({ x: 62 + node.row * 118, y: 46 + node.col * 112 }),
   },
 };

@@ -101,8 +101,8 @@ const glowstone: Diagram = {
     },
     {
       id: "private",
-      label: "Private functions",
-      sub: "Inside the VPC",
+      label: "VPC functions",
+      sub: "Private",
       col: 3,
       row: 1,
       title: "A private database without a NAT gateway",
@@ -147,7 +147,7 @@ const glowstone: Diagram = {
       id: "s3",
       label: "S3",
       sub: "Photos",
-      col: 3,
+      col: 2,
       row: 2,
       title: "S3 photo storage",
       body:

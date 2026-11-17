@@ -18,6 +18,8 @@ export interface ApiResponse<T> {
   success: boolean;
   data?: T;
   error?: string;
+  /** True when the email service itself is not available, as opposed to a rejected message. */
+  unavailable?: boolean;
 }
 
 const ENDPOINT = "/api/contact";
@@ -32,10 +34,18 @@ export async function sendContactMessage(payload: ContactPayload): Promise<ApiRe
     });
     const body = (await response.json().catch(() => null)) as ApiResponse<null> | null;
     if (response.ok && body?.success) return { success: true };
-    return { success: false, error: body?.error ?? FALLBACK_ERROR };
+    const unavailable = response.status === 404 || response.status >= 500;
+    return { success: false, error: body?.error ?? FALLBACK_ERROR, unavailable };
   } catch {
-    return { success: false, error: FALLBACK_ERROR };
+    return { success: false, error: FALLBACK_ERROR, unavailable: true };
   }
+}
+
+/** A mailto link carrying the filled form, used when the email service is unavailable. */
+export function mailtoLink(fields: ContactFields): string {
+  const lines = [fields.message, "", fields.name, fields.company].filter((line, index) => index < 2 || line);
+  const query = `subject=${encodeURIComponent(fields.subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+  return `mailto:${SITE.email}?${query}`;
 }
 
 /** A wa.me link with the filled form as the message, so the visitor only presses send. */

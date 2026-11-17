@@ -4,7 +4,7 @@ import { Download, Mail, MessageCircle } from "lucide-react";
 import Section from "@/components/layout/Section";
 import { Button, buttonVariants } from "@/components/ui/Button";
 import { SITE } from "@/config/site";
-import { sendContactMessage, whatsappLink, type ContactFields } from "@/services/contact";
+import { mailtoLink, sendContactMessage, whatsappLink, type ContactFields } from "@/services/contact";
 import { cn } from "@/lib/utils";
 
 interface ContactProps {
@@ -126,6 +126,12 @@ export default function Contact({ initialSubject = "", initialMessage = "" }: Co
     setSending(true);
     const result = await sendContactMessage({ ...fields, website, turnstileToken: token });
     setSending(false);
+    if (!result.success && result.unavailable) {
+      // The email service is down or not configured: the visitor's own mail app takes over.
+      toast.info("Opening your email app with the message ready to send.");
+      window.location.href = mailtoLink(fields);
+      return;
+    }
     if (!result.success) {
       toast.error(result.error ?? "The message could not be sent.");
       return;

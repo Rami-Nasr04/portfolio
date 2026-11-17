@@ -1,10 +1,9 @@
-/** Copy for About, Experience and Skills. Every fact comes from the CV. */
+/** Copy for About, Experience, Skills and Certificates. */
 
 export const ABOUT_PARAGRAPHS: string[] = [
-  "I'm a full-stack developer in Beirut who builds production web systems end to end and stays with them after launch: TypeScript serverless backends on AWS, PostgreSQL and MySQL data models, authentication, and React frontends.",
-  "As the sole engineer, I built the reservation and floor-management platform that Sushi Tsunami, a fine-dining restaurant in Achrafieh, runs its service on every day. I also built Glowstone, a live e-commerce store with its own admin studio that the owner runs from a phone.",
-  "What I care about: data that can't go wrong (transactions, row locking, idempotent APIs), security by default (MFA, role-based access, parameterized SQL), and fixing real incidents. After a production incident I load-tested the restaurant platform at about ten times its rush-hour traffic, found database connection exhaustion, fixed it across three layers, and re-tested to zero errors.",
-  "Before this, I spent 14 months doing remote IT, network and application support for branches across Lebanon, Africa and Saudi Arabia.",
+  "I'm a full-stack developer in Beirut. I build production web systems end to end and stay with them after launch: TypeScript serverless backends on AWS, PostgreSQL and MySQL data models, authentication, and React frontends.",
+  "What I care about: data that can't go wrong (transactions, row locking, idempotent APIs), security by default (role-based access, parameterized SQL), and finding out how a system fails before its users do.",
+  "Before freelancing, I spent 14 months doing remote IT, network and application support for branches across Lebanon, Africa and Saudi Arabia.",
 ];
 
 export interface Fact {
