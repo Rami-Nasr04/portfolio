@@ -1,0 +1,41 @@
+export const meta = {
+  title: "Load-testing a restaurant platform at ten times its rush hour",
+  date: "2026-11-17",
+  summary:
+    "After a production incident I benchmarked a reservation platform far past its real traffic. It found a connection problem that normal service had never shown, and a three-layer fix took it to zero errors.",
+  draft: true,
+};
+
+Sushi Tsunami is a restaurant in Achrafieh. Its staff run service on a reservation and floor-management platform I built and maintain as the sole engineer: bookings, walk-ins, table merges, seating and billing. The API is serverless, on AWS Lambda behind API Gateway, with PostgreSQL on RDS.
+
+In July the platform had a production incident during a busy week.
+
+[To write: what happened and what staff saw.]
+
+Once it was fixed, I wanted to know what else would break under pressure. So I benchmarked the API at about ten times its real rush-hour load.
+
+## What the load test found
+
+The database ran out of connection slots, and requests started failing with "remaining connection slots are reserved".
+
+The cause was how serverless functions and connection pools interact. Each Lambda container kept its own small pool of open connections. When traffic dropped, the containers were frozen but their connections stayed open. After the test, dozens of idle connections were still pinned on a small database instance with room for about a hundred.
+
+Normal service had never shown this, because normal traffic never started that many containers at once.
+
+## The fix, in three layers
+
+1. **A smaller pool with a shorter idle timeout.** Each container now holds at most two connections, down from five, and gives idle ones back after ten seconds.
+2. **A server-side idle-session timeout.** PostgreSQL itself now closes any session that sits idle for a minute, so a frozen container can no longer hold a slot forever.
+3. **An honest status code.** When the database is out of connections, the API now answers 503, which tells the app "busy, try again", not 500.
+
+## A related defect
+
+The same test showed a second problem. After saving a reservation, the API read it back on a second connection, after the commit. If that second read failed under load, the app was told the booking had failed although it had been saved, and a retry created a duplicate. The read now happens inside the transaction, before the commit.
+
+## Proving it
+
+I re-ran a mixed rush of 160 requests at a concurrency of eight. The result: **zero errors, 105 ms at p50 and 379 ms at p95**.
+
+## What I took from it
+
+[To write: one or two lessons.]
